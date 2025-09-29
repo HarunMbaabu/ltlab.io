@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ltlab — Enterprise AI Solutions</title>
+  <style>
+    :root{
+      --brand:#1f3c88; /* deep indigo */
+      --brand-2:#0b63f6; /* accent */
+      --ink:#101114;
+      --muted:#4a4f5a;
+      --bg:#ffffff;
+      --card:#fafafa;
+      --ring:rgba(31,60,136,.15);
+      --shadow:0 8px 24px rgba(16,17,20,.06);
+      --radius:14px;
+      --container:1180px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font:16px/1.5 "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color:var(--ink);
+      background:var(--bg);
+    }
+    .container{max-width:var(--container);margin-inline:auto;padding:0 24px}
+    /* --- Navbar --- */
+    .navbar{position:sticky;top:0;background:rgba(255,255,255,.8);backdrop-filter:saturate(180%) blur(10px);border-bottom:1px solid #eee;z-index:50}
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0}
+    .logo{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.2px}
+    .logo-dot{width:28px;height:28px;border-radius:999px;background:radial-gradient(60% 60% at 30% 30%,#9ad,#48f 60%,#1f3c88);box-shadow:inset 0 0 0 2px #ecf2ff}
+    .nav-links{display:flex;gap:22px;align-items:center}
+    .nav-links a{color:var(--muted);text-decoration:none;font-weight:500}
+    .btn{display:inline-flex;align-items:center;gap:10px;padding:10px 16px;border-radius:10px;font-weight:600;text-decoration:none;border:1px solid transparent;transition:.2s ease;cursor:pointer}
+    .btn-primary{background:var(--brand);color:#fff;box-shadow:0 6px 16px var(--ring)}
+    .btn-primary:hover{transform:translateY(-1px)}
+    .btn-outline{border-color:var(--brand);color:var(--brand);background:#fff}
+
+    /* --- Hero --- */
+    .hero{padding:56px 0}
+    .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:44px;align-items:center}
+    .tag{display:inline-flex;align-items:center;gap:8px;font-size:.85rem;color:var(--brand);background:#eef2ff;border:1px solid #e2e8ff;padding:6px 10px;border-radius:999px;margin-bottom:14px}
+    .hero h1{font-size:clamp(28px,5vw,56px);line-height:1.05;margin:10px 0 14px}
+    .hero h1 .accent{color:var(--brand)}
+    .hero p{color:var(--muted);max-width:56ch}
+    .hero-actions{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap}
+    .hero-media{position:relative;border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}
+    .hero-media img{width:100%;height:100%;object-fit:cover;display:block}
+
+    /* --- Section headings --- */
+    section{padding:56px 0}
+    .section-head{text-align:center;margin-bottom:26px}
+    .section-head h2{font-size:clamp(22px,3.6vw,36px);margin:0 0 6px}
+    .section-head p{color:var(--muted);margin:0}
+
+    /* --- Cards --- */
+    .cards{display:grid;gap:20px}
+    .grid-3{grid-template-columns:repeat(3,1fr)}
+    .grid-2{grid-template-columns:repeat(2,1fr)}
+    .card{background:var(--card);padding:22px;border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid #eee}
+    .card h3{margin:4px 0 8px}
+    .checklist{padding-left:0;list-style:none}
+    .checklist li{display:flex;gap:8px;align-items:flex-start;margin:6px 0}
+    .check{width:18px;height:18px;border-radius:999px;background:#e9efff;display:inline-grid;place-items:center;font-size:12px;color:var(--brand)}
+
+    /* --- Services --- */
+    .service-card h4{margin:2px 0 10px}
+
+    /* --- Industry Tabs --- */
+    .tabs{display:inline-flex;background:#f3f4f7;border-radius:999px;padding:6px;gap:6px}
+    .tabs button{border:none;background:transparent;padding:8px 14px;border-radius:999px;cursor:pointer;font-weight:600;color:#5a5f6b}
+    .tabs button.active{background:#fff;color:var(--ink);box-shadow:var(--shadow)}
+    .industry-wrap{display:grid;grid-template-columns:1fr 1fr;gap:26px;align-items:center;margin-top:20px}
+    .industry-wrap img{width:100%;border-radius:14px;box-shadow:var(--shadow)}
+
+    /* --- Success Stories --- */
+    .story h4{margin:0 0 8px}
+    .story .meta{display:inline-block;font-size:.75rem;background:#eef2ff;border:1px solid #e2e8ff;color:var(--brand);padding:4px 8px;border-radius:999px;margin-bottom:10px}
+
+    /* --- FAQ --- */
+    .faq{max-width:860px;margin:0 auto}
+    details{background:#fff;border:1px solid #eaecf0;border-radius:12px;padding:14px 18px;box-shadow:var(--shadow)}
+    details+details{margin-top:12px}
+    summary{cursor:pointer;font-weight:600}
+    details p{color:var(--muted);margin:10px 0 0}
+
+    /* --- CTA --- */
+    .cta{background:linear-gradient(180deg,#f7f9ff,#fff);border:1px solid #edf0ff;border-radius:18px;padding:22px;display:flex;align-items:center;justify-content:space-between;gap:14px;box-shadow:var(--shadow)}
+    .cta h3{margin:0}
+
+    /* --- Footer --- */
+    footer{border-top:1px solid #eee;padding:36px 0 20px;background:#fbfbfd}
+    .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr;gap:26px}
+    footer h4{margin:0 0 10px}
+    footer p, footer li{color:#5a5f6b}
+    footer ul{list-style:none;padding:0;margin:0}
+    footer li{margin:6px 0}
+    .copyright{text-align:center;color:#8a8f99;margin-top:22px;font-size:.9rem}
+
+    /* --- Responsive --- */
+    @media (max-width: 980px){
+      .hero-grid, .industry-wrap{grid-template-columns:1fr}
+      .grid-3{grid-template-columns:1fr}
+      .grid-2{grid-template-columns:1fr}
+      .footer-grid{grid-template-columns:1fr 1fr}
+      .cta{flex-direction:column;align-items:flex-start}
+      .nav-links{display:none}
+    }
+    @media (max-width: 560px){
+      .footer-grid{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="container nav-inner">
+      <div class="logo"><span class="logo-dot"></span> ltlab</div>
+      <nav class="nav-links">
+        <a href="#">Platform</a>
+        <a href="#">Solutions</a>
+        <a href="#">Our Services</a>
+        <a href="#">Contact Us</a>
+      </nav>
+      <a class="btn btn-primary" href="#">Inquire</a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <span class="tag">🏢 Enterprise AI Solutions</span>
+        <h1>Transform Your Business with <span class="accent">AI</span> Technology</h1>
+        <p>Custom AI solutions designed for corporate and SME clients to drive efficiency, innovation, and competitive advantage in today's data‑driven marketplace.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#contact">Schedule Consultation</a>
+          <a class="btn btn-outline" href="#">Our Services</a>
+        </div>
+      </div>
+      <div class="hero-media">
+        <img alt="AI team" src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=1400&auto=format&fit=crop" />
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY CHOOSE US -->
+  <section>
+    <div class="container">
+      <div class="section-head">
+        <h2>Why Choose Our Enterprise AI Solutions</h2>
+        <p>Delivering measurable business outcomes through advanced AI implementation</p>
+      </div>
+      <div class="cards grid-3">
+        <article class="card">
+          <h3>Increased ROI</h3>
+          <p>Our clients report an average 32% increase in efficiency and 27% cost reduction within the first year of implementation.</p>
+          <ul class="checklist">
+            <li><span class="check">✔</span> Reduced operational costs</li>
+            <li><span class="check">✔</span> Increased productivity</li>
+            <li><span class="check">✔</span> Faster time‑to‑market</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Scalable Solutions</h3>
+          <p>Enterprise‑grade AI infrastructure that grows with your business—from pilots to organization‑wide deployments.</p>
+          <ul class="checklist">
+            <li><span class="check">✔</span> Flexible deployment options</li>
+            <li><span class="check">✔</span> Cloud or on‑premise</li>
+            <li><span class="check">✔</span> Seamless system integration</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Enterprise Security</h3>
+          <p>Bank‑grade security protocols with GDPR & CCPA compliance to protect sensitive business data.</p>
+          <ul class="checklist">
+            <li><span class="check">✔</span> End‑to‑end encryption</li>
+            <li><span class="check">✔</span> Regular security audits</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section>
+    <div class="container">
+      <div class="section-head">
+        <h2>Our Enterprise AI Services</h2>
+        <p>Comprehensive AI solutions tailored to your business needs and industry requirements</p>
+      </div>
+      <div class="cards grid-2">
+        <article class="card service-card">
+          <h4>Custom AI Development</h4>
+          <ul class="checklist">
+            <li><span class="check">✔</span> Tailored machine learning models</li>
+            <li><span class="check">✔</span> Industry‑specific AI applications</li>
+            <li><span class="check">✔</span> End‑to‑end deployment</li>
+          </ul>
+        </article>
+        <article class="card service-card">
+          <h4>Data Analytics & BI</h4>
+          <ul class="checklist">
+            <li><span class="check">✔</span> Predictive analytics</li>
+            <li><span class="check">✔</span> Custom dashboards & reporting</li>
+            <li><span class="check">✔</span> Real‑time data processing</li>
+          </ul>
+        </article>
+        <article class="card service-card">
+          <h4>Process Automation</h4>
+          <ul class="checklist">
+            <li><span class="check">✔</span> Intelligent document processing</li>
+            <li><span class="check">✔</span> Workflow optimization</li>
+            <li><span class="check">✔</span> RPA with cognitive capabilities</li>
+          </ul>
+        </article>
+        <article class="card service-card">
+          <h4>AI Infrastructure</h4>
+          <ul class="checklist">
+            <li><span class="check">✔</span> Cloud AI setup</li>
+            <li><span class="check">✔</span> MLOps implementation</li>
+            <li><span class="check">✔</span> Scalable compute resources</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- INDUSTRY SOLUTIONS -->
+  <section>
+    <div class="container">
+      <div class="section-head">
+        <h2>Industry‑Specific AI Solutions</h2>
+        <div class="tabs" role="tablist">
+          <button class="active" data-tab="finance" role="tab" aria-selected="true">Finance</button>
+          <button data-tab="healthcare" role="tab">Healthcare</button>
+          <button data-tab="manufacturing" role="tab">Manufacturing</button>
+          <button data-tab="retail" role="tab">Retail</button>
+        </div>
+      </div>
+      <div class="industry-wrap">
+        <img id="industry-img" alt="Industry visual" src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1400&auto=format&fit=crop" />
+        <div>
+          <h3 id="industry-title">AI Solutions for Financial Services</h3>
+          <ul class="checklist" id="industry-list">
+            <li><span class="check">✔</span> Fraud Detection & Prevention</li>
+            <li><span class="check">✔</span> Algorithmic Trading</li>
+            <li><span class="check">✔</span> Customer Risk Assessment</li>
+          </ul>
+          <a class="btn btn-primary" href="#">Learn More About Finance Solutions</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SUCCESS STORIES -->
+  <section>
+    <div class="container">
+      <div class="section-head">
+        <h2>Enterprise Success Stories</h2>
+        <p>Real‑world results from our corporate and SME clients</p>
+      </div>
+      <div class="cards grid-2">
+        <article class="card story">
+          <span class="meta">Financial Services</span>
+          <h4>Global Bank Fraud Detection</h4>
+          <p>Implemented an AI‑powered fraud detection system for a global bank, reducing fraudulent transactions by 83% and saving $4.2M annually.</p>
+          <ul class="checklist">
+            <li><span class="check">✔</span> 83% reduction in fraud</li>
+            <li><span class="check">✔</span> $4.2M annual savings</li>
+          </ul>
+        </article>
+        <article class="card story">
+          <span class="meta">Manufacturing</span>
+          <h4>Predictive Maintenance for AutoTech</h4>
+          <p>Developed a predictive maintenance system for a mid‑sized automotive parts manufacturer, reducing downtime by 47% and maintenance costs by 32%.</p>
+          <ul class="checklist">
+            <li><span class="check">✔</span> 47% reduction in downtime</li>
+            <li><span class="check">✔</span> 32% lower maintenance costs</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section>
+    <div class="container faq">
+      <div class="section-head"><h2>Frequently Asked Questions</h2></div>
+      <details>
+        <summary>What kind of ROI can we expect from AI implementation?</summary>
+        <p>Most clients observe measurable ROI within the first 6–12 months driven by process automation and analytics‑led decisions.</p>
+      </details>
+      <details>
+        <summary>How do you ensure data security and compliance?</summary>
+        <p>We follow best‑practice security controls (encryption, logging, role‑based access) and map to GDPR & CCPA requirements.</p>
+      </details>
+      <details>
+        <summary>Do we need to have data scientists on our team?</summary>
+        <p>No. Our end‑to‑end teams cover discovery, delivery, and enablement so your staff can operate the solutions after launch.</p>
+      </details>
+      <details>
+        <summary>Can your AI solutions integrate with our existing systems?</summary>
+        <p>Yes. We integrate with common ERPs, CRMs, data warehouses, and custom APIs using secure adapters.</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="contact">
+    <div class="container cta">
+      <div>
+        <h3>Ready to Transform Your Business with AI?</h3>
+        <p>Schedule a consultation with our enterprise AI experts to discuss your business challenges and how our solutions can help.</p>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <a class="btn btn-primary" href="#">Schedule Consultation</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container footer-grid">
+      <div>
+        <h4>ltlab ltd</h4>
+        <p>Transforming careers through data science education and AI‑powered learning.</p>
+      </div>
+      <div>
+        <h4>Programs</h4>
+        <ul>
+          <li>Data Analytics</li>
+          <li>Data Science & AI</li>
+          <li>Data Engineering</li>
+          <li>Corporate Training</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li>About Us</li>
+          <li>Careers</li>
+          <li>For Investors</li>
+          <li>Contact</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Address</h4>
+        <p>D18A Garden Court, Garden Estate<br/>Nairobi, Kenya</p>
+        <p>Email: info@luxdevhq.com<br/>Phone: 0798166628</p>
+      </div>
+    </div>
+    <p class="copyright">© 2025 LuxDev Academy. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Tiny tab preview for the Industry section
+    const tabCfg = {
+      finance: {
+        title: 'AI Solutions for Financial Services',
+        img: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1400&auto=format&fit=crop',
+        items: ['Fraud Detection & Prevention','Algorithmic Trading','Customer Risk Assessment']
+      },
+      healthcare: {
+        title: 'AI Solutions for Healthcare',
+        img: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1400&auto=format&fit=crop',
+        items: ['Medical Imaging Assist','Patient Readmission Prediction','Operational Analytics']
+      },
+      manufacturing: {
+        title: 'AI Solutions for Manufacturing',
+        img: 'https://images.unsplash.com/photo-1581092921461-eab62e97a780?q=80&w=1400&auto=format&fit=crop',
+        items: ['Predictive Maintenance','Quality Inspection (CV)','Supply Chain Optimization']
+      },
+      retail: {
+        title: 'AI Solutions for Retail',
+        img: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1400&auto=format&fit=crop',
+        items: ['Demand Forecasting','Recommendation Systems','Customer Segmentation']
+      }
+    };
+
+    const tabs = document.querySelectorAll('.tabs button');
+    const img = document.getElementById('industry-img');
+    const title = document.getElementById('industry-title');
+    const list = document.getElementById('industry-list');
+
+    tabs.forEach(btn => btn.addEventListener('click', () => {
+      tabs.forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      const cfg = tabCfg[btn.dataset.tab];
+      if(!cfg) return;
+      title.textContent = cfg.title;
+      img.src = cfg.img;
+      list.innerHTML = cfg.items.map(t => `<li><span class="check">✔</span> ${t}</li>`).join('');
+    }));
+  </script>
+</body>
+</html>
